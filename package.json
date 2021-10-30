@@ -1,0 +1,8 @@
+{
+  "name": "game-tools-js",
+  "description": "Some fun js snippets that can be used for games",
+  "author": "Almut Kieffer-Jones",
+  "version": "1.0.0",
+  "dependencies": {
+  }
+}
