@@ -1,0 +1,35 @@
+html,
+body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+canvas {
+  position: absolute;
+  z-index: -1;
+}
+
+button {
+  font-size: 2rem;
+  font-family: monospace;
+  cursor: pointer;
+  color: hotpink;
+  border: 1px solid gold;
+  background-color: rgba(cyan, 0.1);
+  padding: 1rem 2rem;
+  margin: 1rem;
+
+  &:active, &:hover {
+    background-color: rgba(cyan, 0.2);
+  }
+}
