@@ -25,6 +25,10 @@ export function removeBodyClasses(...classes) {
     document.body.classList.remove(...classes);
 }
 
+export function setBodyStyleProperty(prop, value) {
+    document.body.style.setProperty(prop, value);
+}
+
 export function setElementToWindowSize(element) {
     element.width = window.innerWidth;
     element.height = window.innerHeight;

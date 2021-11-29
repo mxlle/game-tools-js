@@ -4,11 +4,11 @@
 // import { spaceCatEmojis} from "../src/emojis/sets";
 
 import './index.scss';
-import {CardField} from "../src/cards/CardField";
+import {MatchingPairsField} from "../src/game-bases/matching-pairs/MatchingPairsField";
 
 function initPlayground() {
     const cardTexts = [...Array(12+1).keys()].slice(1);
-    const cardField = new CardField(cardTexts);
+    const cardField = new MatchingPairsField(cardTexts);
     document.body.appendChild(cardField.element);
     // const confettiBtn = createElement({tag: 'button', text: 'Confetti!', onClick: () => triggerConfetti()});
     // document.body.appendChild(confettiBtn);

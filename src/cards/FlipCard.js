@@ -3,6 +3,7 @@ import {createElement} from "../html-utils";
 import './flip-card.scss';
 
 const SHOW_BACK_CSS_CLASS = 'show-back-of-card';
+const ANIMATION_CSS_CLASS = 'card-spin-animation';
 
 export class FlipCard {
     content;
@@ -31,5 +32,9 @@ export class FlipCard {
             this.element.classList.add(SHOW_BACK_CSS_CLASS);
             return true;
         }
+    }
+
+    addAnimation() {
+        this.element.classList.add(ANIMATION_CSS_CLASS);
     }
 }
