@@ -4,14 +4,18 @@ import {createElement, setBodyStyleProperty} from "../../html-utils";
 import './matching-pairs.scss';
 import {shuffleArray} from "../../random-utils";
 import {triggerConfetti} from "../../confetti/confetti";
+import {Toolbar} from "./Toolbar";
 
 const VISIBLE_CARDS_THRESHOLD = 2;
+const HIGH_SCORE_KEY = 'matching_pairs_score';
 
 export class MatchingPairsField {
     cards = [];
     visibleCards = [];
     wonPairs = [];
+    numOfMoves = 0;
     element;
+    toolbar;
 
     constructor(cardTexts) {
         this.cards = [...cardTexts, ...cardTexts].map((text) => new FlipCard(text, '?', (card) => this.flipCard(card)));
@@ -21,13 +25,19 @@ export class MatchingPairsField {
             card.showBack();
             cardsGrid.appendChild(card.element);
         });
+        this.toolbar = new Toolbar(this.cards.length, window.localStorage.getItem(HIGH_SCORE_KEY));
+        this.element.appendChild(this.getHeader());
         this.element.appendChild(cardsGrid);
+        this.element.appendChild(this.toolbar.element);
         this.calculateNumOfColumns();
         window.addEventListener('resize', () => this.calculateNumOfColumns(), false);
     }
 
     flipCard(card) {
         if (this.wonPairs.includes(card)) return;
+
+        this.numOfMoves++;
+        this.toolbar.updateMoves(this.numOfMoves);
 
         const flipped = card.showFront();
 
@@ -64,6 +74,7 @@ export class MatchingPairsField {
     }
 
     triggerWinGame() {
+        this.updateHighScore();
         setTimeout(() => {
             this.cards.forEach((card) => {
                 card.addAnimation();
@@ -82,5 +93,23 @@ export class MatchingPairsField {
             num++;
         }
         setBodyStyleProperty('--grid-columns', num);
+    }
+
+    restartGame() {
+        window.location.reload();
+    }
+
+    getHeader() {
+        const startButton = createElement({tag: 'button', text: 'Restart', onClick: () => this.restartGame()});
+        const header = createElement({cssClass: 'game-header', text: 'Matching Pairs'});
+        header.appendChild(startButton);
+        return header;
+    }
+
+    updateHighScore() {
+        const currentHighScore = Number(window.localStorage.getItem(HIGH_SCORE_KEY) || undefined);
+        if (!isNaN(currentHighScore) && currentHighScore > this.numOfMoves) {
+            window.localStorage.setItem(HIGH_SCORE_KEY, this.numOfMoves.toString());
+        }
     }
 }
