@@ -32,19 +32,24 @@
     position: absolute;
     height: 100%;
     width: 100%;
-    background: hotpink;
+    background: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: black;
     border-radius: 4px;
     backface-visibility: hidden;
-    font-size: 40px;
+    font-size: 26px;
+
+    img {
+      height: calc(100% - 8px);
+      width: calc(100% - 8px);
+      border-radius: 2px;
+      object-fit: cover;
+    }
   }
 
   .card-back {
-    background: #03446A;
-    color: white;
     transform: rotateY( 180deg );
   }
 

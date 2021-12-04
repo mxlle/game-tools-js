@@ -5,10 +5,12 @@
 
 import './index.scss';
 import {MatchingPairsField} from "../src/game-bases/matching-pairs/MatchingPairsField";
+import {setOf12} from "../src/emojis/sets";
 
 function initPlayground() {
-    const cardTexts = [...Array(12+1).keys()].slice(1);
-    const cardField = new MatchingPairsField(cardTexts);
+const pairs = setOf12.map((text) => ({ card1: {text}, card2: {text} }));
+
+    const cardField = new MatchingPairsField(pairs);
     document.body.appendChild(cardField.element);
     // const confettiBtn = createElement({tag: 'button', text: 'Confetti!', onClick: () => triggerConfetti()});
     // document.body.appendChild(confettiBtn);

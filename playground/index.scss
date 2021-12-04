@@ -1,3 +1,6 @@
+$main-color: gold; // #992244;
+$font-family: "Calligraffitti", sans-serif;
+
 html,
 body {
   height: 100%;
@@ -13,7 +16,7 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  font-family: monospace;
+  font-family: $font-family;
 }
 
 canvas {
@@ -24,15 +27,24 @@ canvas {
 
 button {
   font-size: 2rem;
-  font-family: monospace;
+  font-family: $font-family;
   cursor: pointer;
-  color: hotpink;
-  border: 1px solid gold;
-  background-color: rgba(cyan, 0.1);
+  color: white;
+  border: 1px solid $main-color;
+  background-color: rgba($main-color, 0.1);
   padding: 1rem 2rem;
   margin: 1rem;
 
   &:active, &:hover {
-    background-color: rgba(cyan, 0.2);
+    background-color: rgba($main-color, 0.2);
+  }
+}
+
+.card-field {
+  .card.flip-card {
+    .card-back {
+      background: $main-color;
+      color: white;
+    }
   }
 }

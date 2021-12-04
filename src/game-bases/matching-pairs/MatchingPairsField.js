@@ -17,8 +17,15 @@ export class MatchingPairsField {
     element;
     toolbar;
 
-    constructor(cardTexts) {
-        this.cards = [...cardTexts, ...cardTexts].map((text) => new FlipCard(text, '?', (card) => this.flipCard(card)));
+    constructor(pairs) {
+        const BACK_TEXT = '?';
+        const onClick = (card) => this.flipCard(card);
+        const cards = [];
+        pairs.forEach((pair, index) => {
+            cards.push(new FlipCard(index, pair.card1.text, pair.card1.img, BACK_TEXT, onClick));
+            cards.push(new FlipCard(index, pair.card2.text, pair.card2.img, BACK_TEXT, onClick));
+        })
+        this.cards = cards;
         this.element = createElement({cssClass: 'card-field'});
         const cardsGrid = createElement({cssClass: 'cards-grid'});
         shuffleArray(this.cards).forEach((card) => {
@@ -61,8 +68,8 @@ export class MatchingPairsField {
 
     checkForMatchingPair() {
         if (this.visibleCards.length === VISIBLE_CARDS_THRESHOLD) {
-            const text = this.visibleCards[0].content.frontText;
-            if (this.visibleCards.every((card) => card.content.frontText === text)) {
+            const id = this.visibleCards[0].id;
+            if (this.visibleCards.every((card) => card.id === id)) {
                 this.wonPairs.push(...this.visibleCards);
                 this.visibleCards = [];
                 setTimeout(() => triggerConfetti(), 500);
@@ -83,7 +90,7 @@ export class MatchingPairsField {
     }
 
     calculateNumOfColumns() {
-        const height = window.innerHeight;
+        const height = window.innerHeight - 140; // - header & footer
         const width = window.innerWidth;
         const sizeRatio = width / height;
         const cardRoot = Math.sqrt(this.cards.length);
@@ -92,6 +99,7 @@ export class MatchingPairsField {
         if (size * (this.cards.length / num) > height) {
             num++;
         }
+        num = Math.min(num, 8);
         setBodyStyleProperty('--grid-columns', num);
     }
 
@@ -108,7 +116,7 @@ export class MatchingPairsField {
 
     updateHighScore() {
         const currentHighScore = Number(window.localStorage.getItem(HIGH_SCORE_KEY) || undefined);
-        if (!isNaN(currentHighScore) && currentHighScore > this.numOfMoves) {
+        if (isNaN(currentHighScore) || currentHighScore > this.numOfMoves) {
             window.localStorage.setItem(HIGH_SCORE_KEY, this.numOfMoves.toString());
         }
     }
