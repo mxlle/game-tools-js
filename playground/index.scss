@@ -1,4 +1,5 @@
 $main-color: gold; // #992244;
+$secondary-color: hotpink;
 $font-family: "Calligraffitti", sans-serif;
 
 html,
@@ -37,6 +38,14 @@ button {
 
   &:active, &:hover {
     background-color: rgba($main-color, 0.2);
+  }
+
+  &.activated {
+    border: 1px solid $secondary-color;
+    background-color: rgba($secondary-color, 0.1);
+    &:active, &:hover {
+      background-color: rgba($secondary-color, 0.2);
+    }
   }
 }
 

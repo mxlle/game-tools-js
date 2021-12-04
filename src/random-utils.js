@@ -12,3 +12,7 @@ export function shuffleArray(a) {
     }
     return a;
 }
+
+export function randomInt(max) {
+    return Math.floor(Math.random() * max);
+}
