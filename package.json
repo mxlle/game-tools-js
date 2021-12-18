@@ -3,6 +3,7 @@
   "description": "Some fun js snippets that can be used for games",
   "author": "Almut Kieffer-Jones",
   "version": "1.0.0",
+  "main": "index.js",
   "scripts": {
     "build": "npm rum clean && rollup -c",
     "clean": "rimraf dist && mkdirp dist",
